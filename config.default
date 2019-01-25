@@ -1,0 +1,8 @@
+export const config = {
+    SECRET_KEY: '',
+    HOST: '',
+    DATABASE: '',
+    USER: '',
+    PORT: ,
+    PASSWORD: ''
+}
