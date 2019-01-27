@@ -1,7 +1,7 @@
 import { sign, verify } from "jsonwebtoken";
 import { getConnection } from "typeorm";
 import { User } from "../user/user.entity";
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import cfg from "../../../jwtconfig";
 
 const connection = getConnection();
@@ -43,9 +43,11 @@ export const generateToken: any = async (req: any, res: any) => {
     let { email, password } = req.body;
 
     const user = await manager.findOne(User, { email: email });
-
+    
     if (user) {
-        const match = await compare(password, user.password);
+
+        const match = await compare(password.toString(), user.password);
+
         if (!match) {
             return res.status(401).send({
                 message: 'Usuário ou senha incorretos.',

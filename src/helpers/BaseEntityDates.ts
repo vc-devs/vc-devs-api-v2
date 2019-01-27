@@ -1,6 +1,6 @@
-import { Column, BeforeUpdate, BeforeInsert, AfterUpdate } from "typeorm";
+import { Column, BeforeUpdate, BeforeInsert } from "typeorm";
 
-export abstract class BaseEntity {
+export class BaseEntityDates {
 
     @Column({ name: "updated_at", nullable: true })
     public updatedAt: number;
@@ -17,7 +17,10 @@ export abstract class BaseEntity {
 
     @BeforeInsert()
     public updateDates() {
-        this.createdAt = Math.floor(Date.now() / 1000);
+        const time = Math.floor(Date.now() / 1000);
+        this.createdAt = time;
+        this.updatedAt = time;
+
     }
 
 }

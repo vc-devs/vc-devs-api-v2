@@ -5,7 +5,8 @@ build/
 tmp/
 temp/
 .env
-/config.ts
 .npm
+/config.*
+/ormconfig.*
 package-lock.json
 dist/

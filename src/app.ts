@@ -11,7 +11,6 @@ import router from "./routes";
 
 
 connection.then( (connection: Connection) => {
-    // const routes: express.Router = require("./routes/index");
     const app = express();
     const server = http.createServer(app);
     

@@ -1,5 +1,5 @@
 
 import { createConnection, Connection } from "typeorm";
-import { ormConfig } from "../ormconfig";
+const config = require('../ormconfig.json')
 
-export const connection: Promise<Connection> = createConnection(ormConfig);
+export const connection: Promise<Connection> = createConnection(config);

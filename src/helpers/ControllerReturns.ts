@@ -2,7 +2,7 @@ import { Request, Response } from "express-serve-static-core";
 
 export default abstract class ControllerReturns {
 
-    public returnSuccess(res: Response, data: any, message: any = null, created: boolean = false) {
+    public return200(res: Response, data: any, message: any = null, created: boolean = false) {
         return res.status(created ? 201 : 200).send({
             message: message,
             data: data,
@@ -10,8 +10,8 @@ export default abstract class ControllerReturns {
         });
     }
 
-    public returnError(res: Response, message: any = null) {
-        return res.status(401).send({
+    public return500(res: Response, message: any = null) {
+        return res.status(500).send({
             message: message,
             error: true
         });

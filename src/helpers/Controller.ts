@@ -18,11 +18,11 @@ abstract class Controller extends ControllerReturns {
         const id = req.params.id;
 
         if (!id) {
-            this.returnError(res, `ID de ${this.service.entityName} inválido!`);
+            this.return500(res, `ID de ${this.service.entityName} inválido!`);
         }
 
         const data = await this.service.get(id, {...this.options, relations: this.relations});
-        this.returnSuccess(res, data);
+        this.return200(res, data);
     };
 
 
@@ -35,7 +35,7 @@ abstract class Controller extends ControllerReturns {
     public index = async (req: Request, res: Response) => {
         const limit = req.query.limit || 15;
         const data = await this.service.all(limit, {...this.options, relations: this.relations});
-        this.returnSuccess(res, data);
+        this.return200(res, data);
     };
 
 
@@ -49,13 +49,15 @@ abstract class Controller extends ControllerReturns {
         try {
             const created = await this.service.create(req.body);
             if (created) {
-                this.returnSuccess(res, created, `${this.service.entityName} criado com sucesso!`, true);
+                this.return200(res, created, `${this.service.entityName} criado com sucesso!`, true);
+
             } else {
-                this.returnError(res, `Erro durante criação de ${this.service.entityName}`);
+                this.return500(res, `Erro durante criação de ${this.service.entityName}`);
+
             }
         } catch (err) {
-            console.log(err);
-            this.returnError(res, `Erro durante a criação. ${err.message}`);
+            this.return500(res, `Erro durante a criação. ${err.message}`);
+
         }
     };
 
@@ -69,19 +71,19 @@ abstract class Controller extends ControllerReturns {
         const id = req.params.id;
 
         if (!id) {
-            this.returnError(res, `ID de ${this.service.entityName} inválido!`);
+            this.return500(res, `ID de ${this.service.entityName} inválido!`);
         }
 
         try {
             const updated = await this.service.update(req.body, id);
             if (updated) {
-                this.returnSuccess(res, updated, `${this.service.entityName} atualizado com sucesso!`);
+                this.return200(res, updated, `${this.service.entityName} atualizado com sucesso!`);
             } else {
-                this.returnError(res, `Erro durante a atualização de ${this.service.entityName}`);
+                this.return500(res, `Erro durante a atualização de ${this.service.entityName}`);
             }
         } catch (err) {
             console.log(err);
-            this.returnError(res, `Erro durante a atualização. ${err.message}`);
+            this.return500(res, `Erro durante a atualização. ${err.message}`);
         }
     };
 
@@ -95,18 +97,18 @@ abstract class Controller extends ControllerReturns {
         const id = req.params.id;
 
         if (!id) {
-            this.returnError(res, `ID de ${this.service.entityName} inválido!`);
+            this.return500(res, `ID de ${this.service.entityName} inválido!`);
         }
 
         try {
             if (await this.service.delete(id)) {
-                this.returnSuccess(res, null, `${this.service.entityName} excluido com sucesso!`, true);
+                this.return200(res, null, `${this.service.entityName} excluido com sucesso!`, true);
             } else {
-                this.returnError(res, `Erro durante a exclusão de ${this.service.entityName}`);
+                this.return500(res, `Erro durante a exclusão de ${this.service.entityName}`);
             }
         } catch (err) {
             console.log(err);
-            this.returnError(res, `Erro durante a exclusão. ${err.message}`);
+            this.return500(res, `Erro durante a exclusão. ${err.message}`);
         }
     };
 }

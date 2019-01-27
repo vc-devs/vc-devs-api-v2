@@ -1,19 +1,19 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
-import { BaseEntity } from "../../helpers/BaseEntity";
+import { BaseEntityDates } from "../../helpers/BaseEntityDates";
 
 @Entity("users")
-export class User extends BaseEntity {
+export class User extends BaseEntityDates {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column("varchar", { length: 45 })
+    @Column("varchar", { length:  100})
     name: string;
 
     @Column("varchar", { length: 45, unique: true })
     email: string;
 
-    @Column("varchar", { length: 100 })
+    @Column("varchar", { length: 100, select: false  })
     password: string;
 
     // @OneToOne(type => UserInformation, userInfo => userInfo.user, {
